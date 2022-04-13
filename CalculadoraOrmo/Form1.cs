@@ -281,6 +281,7 @@ namespace CalculadoraOrmo
         {
             if(!display.Text.Trim().Equals(String.Empty))
             {
+                // Magia. Não mexa.
                 display.Text = display.Text.Remove(display.Text.LastIndexOf(display.Text.Last()));
             }
         }
@@ -289,6 +290,7 @@ namespace CalculadoraOrmo
         {
             if (!display.Text.Trim().Equals(String.Empty))
             {
+                // Magia. Não mexa.
                 display.Text = Convert.ToString(Convert.ToDouble(display.Text) * -1);
             }
         }
