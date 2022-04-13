@@ -59,6 +59,44 @@ namespace CalculadoraOrmo
             display.Clear();
         }
 
+        private void calcularUm(string caractere)
+        {
+            if (display.Text.Trim().Equals(String.Empty))
+            {
+                return;
+            }
+
+            numero1 = Convert.ToDouble(display.Text.Trim());
+            operacao = caractere;
+
+            switch (operacao)
+            {
+                case "sqrt":
+                    if (numero1 > 0)
+                    {
+                        resultado = Math.Sqrt(numero1);
+                    }
+                    else
+                    {
+                        MessageBox.Show("pfvr nao faz raiz de negativo");
+                    }
+                    break;
+                case "pw2":
+                    resultado = numero1 * numero1;
+                    break;
+                case "1/x":
+                    resultado = 1 / numero1;
+                    break;
+                default:
+                    MessageBox.Show("Deu algo muito errado.");
+                    break;
+
+            }
+            numero1 = resultado;
+            display.Text = resultado.ToString();
+            pressionouIgual = true;
+        }
+
         private void calcular()
         {
             switch (operacao) 
@@ -189,18 +227,27 @@ namespace CalculadoraOrmo
             addOperacao("+");
         }
 
-
         private void button_mult_Click(object sender, EventArgs e)
         {
             addOperacao("*");
         }
 
+        private void button_div_Click(object sender, EventArgs e)
+        {
+            addOperacao("/");
+        }
+
+        private void button_pwrY_Click(object sender, EventArgs e)
+        {
+            addOperacao("^");
+        }
+
         private void button_comma_Click(object sender, EventArgs e)
         {
-            if(pressionouIgual)
+            if (pressionouIgual)
             {
                 limparCampos();
-            }                                                                                                                                                                                                                                                                  
+            }
 
             if (display.Text.Contains(",")) return; 
 
@@ -217,20 +264,43 @@ namespace CalculadoraOrmo
 
         private void button_pwr2_Click(object sender, EventArgs e)
         {
-            numero1 = Convert.ToDouble(display.Text.Trim());
-            resultado = numero1 * numero1;
-            display.Text = resultado.ToString();    
-            pressionouIgual = true;
+            calcularUm("pw2");
         }
 
-        private void button_pwrY_Click(object sender, EventArgs e)
+        private void button_sqrt_Click(object sender, EventArgs e)
         {
-            addOperacao("^");
+            calcularUm("sqrt");
         }
 
-        private void button_div_Click(object sender, EventArgs e)
+        private void button_inverse_Click(object sender, EventArgs e)
         {
-            addOperacao("/");
+            calcularUm("1/x");
+        }
+
+        private void button_next_Click(object sender, EventArgs e)
+        {
+            if(!display.Text.Trim().Equals(String.Empty))
+            {
+                display.Text = display.Text.Remove(display.Text.LastIndexOf(display.Text.Last()));
+            }
+        }
+
+        private void button_negpos_Click(object sender, EventArgs e)
+        {
+            if (!display.Text.Trim().Equals(String.Empty))
+            {
+                display.Text = Convert.ToString(Convert.ToDouble(display.Text) * -1);
+            }
+        }
+
+        private void button_ce_Click(object sender, EventArgs e)
+        {
+            if(pressionouIgual) {
+                limparCampos();
+                return;
+            }
+
+            display.Clear();
         }
 
         private void button_c_Click(object sender, EventArgs e)
