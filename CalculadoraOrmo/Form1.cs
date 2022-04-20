@@ -19,7 +19,7 @@ namespace CalculadoraOrmo
 
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void addDigito(string digito)
@@ -211,7 +211,15 @@ namespace CalculadoraOrmo
         {
             if(!display.Text.Trim().Equals(String.Empty))
             {
-                numero2 = Convert.ToDouble(display.Text);
+                if (pressionouIgual)
+                {
+                    numero1 = Convert.ToDouble(display.Text);
+                }
+                else
+                {
+                    numero2 = Convert.ToDouble(display.Text);
+                }
+
                 calcular();
                 pressionouIgual = true;
             }
@@ -283,6 +291,10 @@ namespace CalculadoraOrmo
             {
                 // Magia. Não mexa.
                 display.Text = display.Text.Remove(display.Text.LastIndexOf(display.Text.Last()));
+                if (display.Text.Trim().Equals(String.Empty))
+                {
+                    display.Text = "0";
+                }
             }
         }
 
@@ -293,6 +305,11 @@ namespace CalculadoraOrmo
                 // Magia. Não mexa.
                 display.Text = Convert.ToString(Convert.ToDouble(display.Text) * -1);
             }
+        }
+
+        private void display_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void button_ce_Click(object sender, EventArgs e)
